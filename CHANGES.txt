@@ -1,0 +1,94 @@
+==============================================================================
+DreamGL v0.2 - 2003/06/19 - Changes From Previous Version
+==============================================================================
+
+* Found a great quote in Moller & Haines's "Real Time Rendering":
+
+    "premature optimization is the root of all evil."
+    		-Donald Knuth
+
+* Biggest Change == Time. Currently putting in < 8 hours a week :-(
+
+* Focus is still on keeping everything Simple and Naiive.
+  - I'm currently learning about 3D rendering, and hopefully so will you.
+  - Lots of Code Simplification and cleaning. I think you will find things
+    MUCH easier to understand in this version.
+  - Not going to worry any more about keeping PS2 and "generic" bits
+    separate. Going to focus on building fastest possible Open/MiniGL
+    for PS2 :-)
+
+* Removed intermediate Vertex, Color, and Texture buffers.
+  - Treating everything like a state machine for now...sending things to
+    the DMA buffer as they come.
+  - Vertices are transformed as they arrive, one at a time.
+  - I realize it will need to change again, and introduce some sort of
+    buffering again, when I do culling/clipping/VU1 code, but it's much
+    cleaner this way for now.
+  - Eventually will have a custom "pipe" for each primitive type.
+
+* Added DGLcontext member, GLboolean VSync, to let you select whether to
+  wait for vertical retrace before swapping buffers.
+
+* Added timer code to DrFreak demo, for benchmarking.
+
+* Created TOOLS directory and included BMP2C and MD2C in there.
+
+* Created CONTRIB directory. All "contributed" demos and code will be put
+  in there. DrFreak can now be found here.
+
+
+*** Some stuff about the PS2 timers and how to (not?) use them:
+
+  - DrFreak has 593 triangles.
+
+  - Was getting weird FPS readings with the different timers. This meant
+    that either my timer code was crap, or the way I'm calculating FPS
+    was crap, or something else.
+
+  - I sampled two timers (with different resolutions) in the demo (see
+    main_ps2.c), so I could compare the two. They each indicated
+    different FPS.
+
+  - I thought it could have something to do with waiting for Vertical
+    Retrace, so I disabled it in dglSwapBuffers(). The indicated FPS jumped
+    up to somewhere slightly less than double what they were before, but
+    the two timers still indicated different FPS :(
+
+  - Thought for a minute about how the timers might actually work, and decided
+    that it was possible my timer samples were crap because they're possibly
+    "overflowing" or re-setting (doh...don't sample AFTER vertical retrace),
+    in other words: DrFreak is taking slightly more than 1/25th of a second
+    (I have a PAL system) to "render" (a single frame...pathetic isn't it:)
+
+  - I halved the number of triangles to be drawn, and bingo: the indicated
+    FPS's shot up again, and this time they both matched.
+
+  - This means that during these early stages of DreamGL, I need to make
+    sure not to draw too much, so that it all fits in a single frame.
+
+  - So, 400 triangles currently drawn around 126 times per second, makes around
+    50,000 textured and colored triangles per second. We can only get faster
+    from here ... right????????????
+
+* NOTE: Does all this sound right? or is it totally wrong? The Sony documentation
+  is very scarce on this topic.
+
+  - I've forced the DrFreak demo to only draw the first 400 triangles for now.
+    Unfortunately, this removes the poor guy's head.
+
+  - Target for DreamGL v0.3: Return DrFreak's 193 triangles to him within
+    a single Frame...and add some more API functionality to the library.
+    Possible features/optimizations:
+      * Reduce DMA buffer usage by around 1/3rd.
+      * Do some matrix and transform optimizations.
+      * Split into separate geometry pipes, with multiple stages each.
+
+==============================================================================
+DreamGL v0.1 - 2003/05/06 - Changes From Previous Version
+==============================================================================
+
+* First Version.
+
+------------------------------------------------------------------------------
+                                                      Tony Saveski (dreamtime)
+                                                           t_saveski@yahoo.com
