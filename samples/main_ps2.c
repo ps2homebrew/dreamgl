@@ -72,7 +72,7 @@ void swap_buffers(void)
 //------------------------------------------------------------------------
 int init(void)
 {
-	sif_rpc_init(0);
+	SifInitRpc(0);
 
 	memset(&ctx, 0, sizeof(DGLcontext));
 

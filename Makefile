@@ -59,13 +59,13 @@ AS=ee-as
 LD=ee-ld
 AR=ee-ar
 
-PS2LIB=/usr/local/ps2dev
-#PS2LIB=/usr/local/ps2lib-2.0beta
+#PS2SDK=/usr/local/ps2dev
+#PS2SDK=/usr/local/ps2lib-2.0beta
 
 DIR_BIN=bin
 DIR_LIB=lib
 DIR_INC=include
-DIR_SRC_PS2CPU=src_ps2cpu
+DIR_SRC_PS2CPU=src
 DIR_SRC_SAMPLES=samples
 
 LIB_DREAMGL=$(DIR_LIB)/libdreamgl.a
@@ -78,14 +78,14 @@ CFLAGS= \
 	-I$(DIR_INC) \
 	-I$(DIR_SRC_PS2CPU) \
 	-I$(DIR_SRC_PS2CPU) \
-	-I$(PS2LIB)/common/include \
-	-I$(PS2LIB)/ee/include \
-	-L$(PS2LIB)/ee/lib \
+	-I$(PS2SDK)/common/include \
+	-I$(PS2SDK)/ee/include \
+	-L$(PS2SDK)/ee/lib \
 	-L$(DIR_LIB) \
 	-DDGL_PS2
 
-LINKFILE=$(PS2LIB)/ee/startup/linkfile
-CRTFILE=$(PS2LIB)/ee/startup/crt0.o
+LINKFILE=$(PS2SDK)/ee/startup/linkfile
+CRTFILE=$(PS2SDK)/ee/startup/crt0.o
 
 CSRC = \
 	$(DIR_SRC_PS2CPU)/ee.c \
