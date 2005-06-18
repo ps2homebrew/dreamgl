@@ -71,10 +71,11 @@ DIR_SRC_SAMPLES=samples
 LIB_DREAMGL=$(DIR_LIB)/libdreamgl.a
 
 STD_LIBS=-lm -lc -lkernel -lc -lgcc
-DEMO_LIBS= -ldreamgl $(STD_LIBS)
+DEMO_LIBS= -ldreamgl -lps2Perf -L$(PS2DEV)/ps2Perf/lib $(STD_LIBS) 
 
 CFLAGS= \
 	-Wall -W -EL -G0 -O3 -mips3 -nostdlib \
+	-I$(PS2DEV)/ps2Perf/include \
 	-I$(DIR_INC) \
 	-I$(DIR_SRC_PS2CPU) \
 	-I$(DIR_SRC_PS2CPU) \
@@ -146,6 +147,11 @@ $(DIR_BIN)/demo5.elf: $(LIB_DREAMGL) $(DIR_SRC_SAMPLES)/main_ps2.o $(DIR_SRC_SAM
 	@echo "-------------------------------------------------"
 	$(CC) -xassembler-with-cpp -c $(CFLAGS) $< -o $@
 
+install: all
+	mkdir -p $(PS2DEV)/dreamgl/include/GL
+	mkdir -p $(PS2DEV)/dreamgl/lib
+	cp -f $(LIB_DREAMGL) $(PS2DEV)/dreamgl/lib
+	cp -f include/GL/*.h $(PS2DEV)/dreamgl/include/GL
 
 
 clean:
