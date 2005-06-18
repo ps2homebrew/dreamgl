@@ -111,7 +111,13 @@ SOBJ=$(SSRC:.s=.o)
 OBJ=$(COBJ) $(SOBJ)
 
 
-all: $(LIB_DREAMGL) $(DIR_BIN)/demo1.elf $(DIR_BIN)/demo2.elf $(DIR_BIN)/demo3.elf $(DIR_BIN)/demo4.elf $(DIR_BIN)/demo5.elf
+all: $(DIR_BIN) $(DIR_LIB) $(LIB_DREAMGL) $(DIR_BIN)/demo1.elf $(DIR_BIN)/demo2.elf $(DIR_BIN)/demo3.elf $(DIR_BIN)/demo4.elf $(DIR_BIN)/demo5.elf
+
+$(DIR_BIN):
+	mkdir -p $(DIR_BIN)
+
+$(DIR_LIB):
+	mkdir -p $(DIR_LIB)
 
 $(LIB_DREAMGL): $(OBJ)
 	@echo "-------------------------------------------------"
