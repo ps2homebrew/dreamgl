@@ -116,6 +116,10 @@ typedef void						GLvoid;
 // Pixel Data Types
 #define GL_UNSIGNED_BYTE			0x1401
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // GL functions
 extern void		glBegin(GLenum mode);
 extern void		glBindTexture(GLenum target, GLuint texture);
@@ -251,5 +255,9 @@ extern void		glVertex4iv(const GLint *v);
 extern void		glVertex4s(GLshort x, GLshort y, GLshort z, GLshort w);
 extern void		glVertex4sv(const GLshort *v);
 extern void		glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // GL_H
