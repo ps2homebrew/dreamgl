@@ -18,5 +18,7 @@ jobs:
         git fetch --prune --unshallow
     - name: Compile project
       run: |
+        git clone https://github.com/ps2homebrew/ps2Perf
+        cd ps2Perf && make all && make install
         make all
     # commands for compiling your project
